@@ -101,7 +101,7 @@ private void AnswerCommand(bool answer)
             WrongIcon.SetActive(false);
             CorrectIcon.SetActive(true);
         }
-        catch (NullReferenceException)
+        catch (UnassignedReferenceException)
         {
             Debug.LogWarning("Record Icon/Wrong Icon/Correct Icon not set");
         }
@@ -116,7 +116,7 @@ private void AnswerCommand(bool answer)
             WrongIcon.SetActive(true);
             CorrectIcon.SetActive(false);
         }
-        catch (NullReferenceException)
+        catch (UnassignedReferenceException)
         {
             Debug.LogWarning("Record Icon/Wrong Icon/Correct Icon not set");
         }
@@ -130,7 +130,7 @@ private void AnswerCommand(bool answer)
             WrongIcon.SetActive(false);
             CorrectIcon.SetActive(false);
         }
-        catch (NullReferenceException)
+        catch (UnassignedReferenceException)
         {
             Debug.LogWarning("Record Icon/Wrong Icon/Correct Icon not set");
         }

@@ -5,6 +5,40 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
+
+/*  ######################################################################
+ *                  + DialogueManager : Monobehaviour
+ * =======================================================================
+ *  - instance : DialogueManager
+ *  - nameText : Text
+ *  - dialogueText : Text
+ *  - sentences : Queue<DialogueSentence>
+ *  - isTyping : Bool = false
+ *  - currentDialogueSentence : DialogueSentence
+ *  - currentDialogueEvent : UnityEvent
+ *  - endOfDialogueEvents : UnityEvent
+ *  # soundClip : AudioClip
+ *  =======================================================================
+ *  - Start() : void
+ *  - SetTextPlaceHolder(dialogueText:Text , nameText:Text) : void
+ *  + StartDialogue(dialogue:Dialogue) : void
+ *  - PerformCurrentEvent() : void
+ *  + DisplayNextSentence() : void
+ *  + DisplayCurrentSentence() : void
+ *  - TypeSentences(sentence:string) : IEnumerator
+ *  - EndDialogue() : void
+ *  + FinishedSoundEffect(audio:AudioClip) : IEnumerator
+ *  =======================================================================
+ *                                  NOTES
+ *  -- DialogueManager is a SINGLETON and 
+ *      ONLY ONE OF IT MUST EXIST IN THE SCENE
+ *  -- To start a dialogue, a Dialogue object is required.
+ *      (Usually set by DialogueTrigger)
+ *  -- Progressing the dialogue is possible using
+ *      DisplayNextSentence and DisplayCurrentSentence functions
+ *  ######################################################################  
+ */
+
 public class DialogueManager : MonoBehaviour {
 
     #region Singleton
@@ -19,65 +53,73 @@ public class DialogueManager : MonoBehaviour {
     private Text nameText;
     private Text dialogueText;
 
-    //public HintSystem hintSystem;  //TODO : Singleton
-
-    //It is optimal for the sentence and events to be the same size.
     private Queue<DialogueSentence> sentences;
-    //private Queue<UnityEvent> events;
 
-    private bool CoroutineIsBusy = false;
+    private bool isTyping = false;
 
     private DialogueSentence currentDialogueSentence;
     private UnityEvent currentDialogueEvent;
 
     private UnityEvent endOfDialogueEvents;
 
-
-//    public GameObject continueButton;
-
     internal AudioClip soundClip;
 
 
     void Start () {
         sentences = new Queue<DialogueSentence>();
-        //events = new Queue<UnityEvent>();
         instance = this;
 	}
 
-    public void SetTextPlaceHolder(Text dialogueText, Text nameText)
+
+    //Used internally to update the dialogue text and name placeholders
+    private void SetTextPlaceHolder(Text dialogueText, Text nameText)
     {
-        this.dialogueText = dialogueText;
+        try
+        {
+            this.dialogueText = dialogueText;
+        } catch (NullReferenceException)
+        {
+            Debug.LogError("Dialogue Text has not been set. Where do you want to show your dialogue???");
+        }
         if (nameText != null) this.nameText = nameText;
     }
 
 
     //called by DialogueTrigger
-    public void StartDialogue(Dialogue dialogue)
+    public void StartDialogue(Dialogue dialogue, Text dialogueText = null, Text nameText = null)
     {
         
         Debug.Log("Starting Conversation with " + dialogue.name);
 
+        //Set where to show the dialogue
+        SetTextPlaceHolder(dialogueText, nameText);
+
+        //Update the Name
         nameText.text = dialogue.name;
 
+        //Clear and fill the sentences queue
         sentences.Clear();
 
         foreach (var sentence in dialogue.sentences)
         {
             sentences.Enqueue(sentence);
         }
-        
+
+        //Update the EndOfDialogueEvents
         if (dialogue.EndOfDialogueEvents != null)
         {
             this.endOfDialogueEvents = dialogue.EndOfDialogueEvents;
         }
 
-        if (!CoroutineIsBusy)
+        //Start Typing
+        if (!isTyping)
         {
             DisplayNextSentence();
         }
     }
 
-    public void PerformCurrentEvent()
+    //Performs the current dequeued event
+    private void PerformCurrentEvent()
     {
         if (currentDialogueEvent != null)
         {
@@ -85,25 +127,30 @@ public class DialogueManager : MonoBehaviour {
         }
     }
 
-
     //Pop the sentence queue
     public void DisplayNextSentence()
     {
+        //Check if empty
         if(sentences.Count == 0)
         {
             EndDialogue();
             return;
         }
 
+        //Pop the queue
         currentDialogueSentence = sentences.Dequeue();
+
+        //Update Values
         currentDialogueEvent = currentDialogueSentence.afterDialogueEvent;
         HintSystem.instance.SetHint(currentDialogueSentence.HintText);
         HintSystem.instance.SetAdditionalHintArray(currentDialogueSentence.AddtionalHints);
 
+        //Type the popped sentence and invoke it's event
         StartCoroutine(TypeSentences(currentDialogueSentence.Text));
         PerformCurrentEvent();
     }
 
+    //Displays the current dequeued sentence
     public void DisplayCurrentSentence()
     {
         StartCoroutine(TypeSentences(currentDialogueSentence.Text));
@@ -112,9 +159,9 @@ public class DialogueManager : MonoBehaviour {
     //Coroutine for displaying sentences.
     private IEnumerator TypeSentences (string sentence)
     {
-        if (!CoroutineIsBusy)
+        if (!isTyping)
         {
-            CoroutineIsBusy = true;
+            isTyping = true;
             dialogueText.text = "";
             foreach (char letter in sentence)
             {
@@ -124,29 +171,25 @@ public class DialogueManager : MonoBehaviour {
             }
 
             //AfterSoundEffect();
-            CoroutineIsBusy = false;
+            isTyping = false;
             HumanOperator.instance.DisplayRecording();
         }
     }
-    
-    
 
-    public void AfterSoundEffect()
+    //Performed after there are no more sentences.
+    private void EndDialogue()
     {
-        StartCoroutine(PerformEventAfterSoundEffect(soundClip));
+        //Invoke the event
+        endOfDialogueEvents.Invoke();
+
+        //Clear the DialogueTrigger
+        HumanOperator.instance.dialogueTrigger = null;
     }
 
-    IEnumerator PerformEventAfterSoundEffect(AudioClip audio)
+    //Shows recording UI after the Clip Length
+    public IEnumerator FinishedSoundEffect(AudioClip audio)
     {
         yield return new WaitForSeconds(audio.length);
         HumanOperator.instance.DisplayRecording();
     }
-    //Performed after there are no more sentences.
-    public void EndDialogue()
-    {
-        endOfDialogueEvents.Invoke();
-        HumanOperator.instance.dialogueTrigger = null;
-    }
-
-
 }

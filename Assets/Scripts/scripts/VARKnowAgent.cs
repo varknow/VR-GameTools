@@ -74,6 +74,7 @@ public class VARKnowAgent : MonoBehaviour
 //            yield return new WaitForSeconds(animTime); 
         }
     }
+
     public void Appear()
     {
 
