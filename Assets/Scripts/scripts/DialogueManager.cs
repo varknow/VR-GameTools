@@ -154,6 +154,7 @@ public class DialogueManager : MonoBehaviour {
     public void DisplayCurrentSentence()
     {
         StartCoroutine(TypeSentences(currentDialogueSentence.Text));
+        PerformCurrentEvent();
     }
 
     //Coroutine for displaying sentences.

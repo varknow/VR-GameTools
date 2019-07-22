@@ -77,7 +77,7 @@ private void AnswerCommand(bool answer)
         }
         else
         {
-            Sfx.PlaySoundEffect("wrong");
+            Sfx.PlaySoundEffect("wrong");            
             DialogueManager.instance.DisplayCurrentSentence();
             DisplayWrongAnswer();
         }
