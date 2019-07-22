@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 1599832744736368385}
   - component: {fileID: 1599832744736368384}
   - component: {fileID: 1599832744736368391}
-  - component: {fileID: 1599832744736368390}
   - component: {fileID: 1599832744736368397}
   m_Layer: 5
   m_Name: inventori
@@ -141,19 +140,6 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
---- !u!114 &1599832744736368390
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599832744736368389}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6a72ba546f51f14aad87f9420b701c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  follow: {fileID: 0}
 --- !u!114 &1599832744736368397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,9 +152,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19cc99bfb88589b42b19cdc8c058bef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  a: {fileID: 0}
-  gameObjects: []
-  number: 0
+  itemsList: []
+  maxNumber: 0
 --- !u!1 &1599832746036083471
 GameObject:
   m_ObjectHideFlags: 0
