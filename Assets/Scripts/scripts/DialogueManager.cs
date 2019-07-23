@@ -65,13 +65,12 @@ public class DialogueManager : MonoBehaviour {
     internal AudioClip soundClip;
     public AudioClip audioclip;
 
-    private SoundEffectsManger Sfx;
+    public SoundEffectsManger Sfx;
 
 
     void Start () {
         sentences = new Queue<DialogueSentence>();
         instance = this;
-        Sfx = GetComponent<SoundEffectsManger>();
 	}
 
 
