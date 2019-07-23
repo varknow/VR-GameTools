@@ -24,9 +24,9 @@ public class DialogueSentence
 {
     [TextArea(3,10)]
     public string Text;
-
+    public AudioClip audioclip;
     public UnityEvent afterDialogueEvent;
-
+ 
     [TextArea(1,10)]
     public string HintText;
     [TextArea(1,10)]

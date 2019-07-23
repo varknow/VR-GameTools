@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine.Events;
 
 /*  ######################################################################
  *                               + Dialogue
@@ -16,8 +13,6 @@ using UnityEngine.Events;
  * -- This Object is included within DialogueTrigger
  * #######################################################################
  */
-
-
 
 [System.Serializable]
 public class Dialogue {

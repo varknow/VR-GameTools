@@ -21,6 +21,10 @@ public class HumanOperator : MonoBehaviour
     public GameObject CorrectIcon;
     public GameObject WrongIcon;
 
+    //ding & dong sounds
+    public AudioClip wrongSound,correctSound;
+    
+
     //edit script end
     public KeyCode CorrectAnswerKey = KeyCode.T;
     public KeyCode WrongAnswerKey = KeyCode.F;
@@ -71,13 +75,13 @@ private void AnswerCommand(bool answer)
     {
         if (answer)
         {
-            Sfx.PlaySoundEffect("correct");
+            Sfx.play(wrongSound);
             DialogueManager.instance.DisplayNextSentence();
             DisplayCorrectAnswer();
         }
         else
         {
-            Sfx.PlaySoundEffect("wrong");            
+            Sfx.play(correctSound);          
             DialogueManager.instance.DisplayCurrentSentence();
             DisplayWrongAnswer();
         }

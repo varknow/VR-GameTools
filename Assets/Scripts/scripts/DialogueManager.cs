@@ -63,6 +63,9 @@ public class DialogueManager : MonoBehaviour {
     private UnityEvent endOfDialogueEvents;
 
     internal AudioClip soundClip;
+    public AudioClip audioclip;
+
+    public SoundEffectsManger Sfx;
 
 
     void Start () {
@@ -141,6 +144,7 @@ public class DialogueManager : MonoBehaviour {
         currentDialogueSentence = sentences.Dequeue();
 
         //Update Values
+        AudioClip clip = currentDialogueSentence.audioclip;
         currentDialogueEvent = currentDialogueSentence.afterDialogueEvent;
         HintSystem.instance.SetHint(currentDialogueSentence.HintText);
         HintSystem.instance.SetAdditionalHintArray(currentDialogueSentence.AddtionalHints);
@@ -148,6 +152,10 @@ public class DialogueManager : MonoBehaviour {
         //Type the popped sentence and invoke it's event
         StartCoroutine(TypeSentences(currentDialogueSentence.Text));
         PerformCurrentEvent();
+        //PlayDialogueSound
+        Sfx.play(clip);
+        
+
     }
 
     //Displays the current dequeued sentence
@@ -193,4 +201,6 @@ public class DialogueManager : MonoBehaviour {
         yield return new WaitForSeconds(audio.length);
         HumanOperator.instance.DisplayRecording();
     }
+
+
 }
