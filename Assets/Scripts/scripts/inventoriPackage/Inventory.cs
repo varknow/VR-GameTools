@@ -51,7 +51,7 @@ public class Inventory : MonoBehaviour
 
     public void Remove(GameObject game)
     {
-        Debug.Log("remove");
+        //Debug.Log("remove");
         Debug.Log(GameObjects.Remove(game));
         ItemsList.Remove(game);
         UpdatePosition();
