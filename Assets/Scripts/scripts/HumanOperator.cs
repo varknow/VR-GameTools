@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(SoundEffectsManger))]
 public class HumanOperator : MonoBehaviour
@@ -30,7 +27,7 @@ public class HumanOperator : MonoBehaviour
     public KeyCode WrongAnswerKey = KeyCode.F;
     public KeyCode StartDialogueKey = KeyCode.R;
 
-    public SoundEffectsManger Sfx;
+    private SoundEffectsManger Sfx;
     
     public VARKnowAgent varKnowAgent;
 
@@ -40,6 +37,7 @@ public class HumanOperator : MonoBehaviour
     void Start()
     {
         varKnowAgent = FindObjectOfType<VARKnowAgent>();
+        Sfx = GetComponent<SoundEffectsManger>();
     }
 
     // Update is called once per frame
