@@ -64,6 +64,7 @@ public class DialogueManager : MonoBehaviour {
 
     internal AudioClip soundClip;
     public AudioClip audioclip;
+    
 
     private SoundEffectsManger Sfx;
 

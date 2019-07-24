@@ -4,7 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class SoundEffectsManger : MonoBehaviour
 {
-    //public SoundEffect[] Effcets;
+    public float minValue,maxValue;
+    public float SoundSpeed;
     AudioSource audiosource;
     public void  Start()
     {
@@ -12,10 +13,11 @@ public class SoundEffectsManger : MonoBehaviour
     }
 
 
-    public void play (AudioClip clip)
+    public void play (AudioClip clip,AudioSource aS)
     {
         audiosource.clip = clip;
         audiosource.Play();
+        
     }
 
     public void stop(string n)
