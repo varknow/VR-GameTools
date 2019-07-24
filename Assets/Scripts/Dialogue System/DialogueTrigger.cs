@@ -19,25 +19,22 @@ using UnityEngine.UI;
  * #######################################################################
  */
 
-    [RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(AudioSource))]
 public class DialogueTrigger : MonoBehaviour
 {
 
-    public AudioSource audiosource;
+    private AudioSource audiosource;
 	public Text dialogueText; // The text to update
     public Text nameText; //The Speaker's name
     public Dialogue dialogue; //The dialogue to initiate
 
+    private void Start()
+    {
+        audiosource = this.GetComponent<AudioSource>();
+    }
 
     //Call this method when you want to initiate the dialogue related to this trigger
-	public void StartDialogue () { 
-        DialogueManager.instance.StartDialogue(dialogue,dialogueText,nameText);
-
-
-
-    }
-    void GetComponent()
-    {
-        audiosource = GetComponent<AudioSource>();
+    public void StartDialogue () { 
+        DialogueManager.instance.StartDialogue(dialogue, audiosource, dialogueText, nameText);
     }
 }

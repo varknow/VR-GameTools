@@ -64,10 +64,6 @@ public class DialogueManager : MonoBehaviour {
 
     internal AudioClip soundClip;
     public AudioClip audioclip;
-    
-
-    public SoundEffectsManger Sfx;
-
 
     void Start () {
         sentences = new Queue<DialogueSentence>();
@@ -90,13 +86,16 @@ public class DialogueManager : MonoBehaviour {
 
 
     //called by DialogueTrigger
-    public void StartDialogue(Dialogue dialogue, Text dialogueText = null, Text nameText = null)
+    public void StartDialogue(Dialogue dialogue, AudioSource audioSource, Text dialogueText = null, Text nameText = null)
     {
         
         Debug.Log("Starting Conversation with " + dialogue.name);
 
         //Set where to show the dialogue
         SetTextPlaceHolder(dialogueText, nameText);
+
+        //Update the audioSource
+        SoundEffectsManger.instance.audioSource = audioSource;
 
         //Update the Name
         nameText.text = dialogue.name;
@@ -154,7 +153,7 @@ public class DialogueManager : MonoBehaviour {
         StartCoroutine(TypeSentences(currentDialogueSentence.Text));
         PerformCurrentEvent();
         //PlayDialogueSound
-        Sfx.Play(clip);
+        SoundEffectsManger.instance.Play(clip);
         
 
     }

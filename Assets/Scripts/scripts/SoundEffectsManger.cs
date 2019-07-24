@@ -4,30 +4,35 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class SoundEffectsManger : MonoBehaviour
 {
+    #region Singleton
+    public static SoundEffectsManger instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+    #endregion
+
     public float minValue,maxValue;
     public float SoundSpeed;
-    AudioSource audiosource;
+    public AudioSource audioSource;
     public void  Start()
     {
-        audiosource = this.GetComponent<AudioSource>();
+        //audiosource = this.GetComponent<AudioSource>();
     }
 
 
-<<<<<<< HEAD
     public void Play (AudioClip clip)
-=======
-    public void play (AudioClip clip,AudioSource aS)
->>>>>>> 18bbd37... AudioSource Edit
     {
-        audiosource.clip = clip;
-        audiosource.Play();
+        audioSource.clip = clip;
+        audioSource.Play();
         
     }
 
     public void Stop(string n)
     {
-        audiosource.Stop();
-        audiosource.clip = null;
+        audioSource.Stop();
+        audioSource.clip = null;
     }
 
 }
