@@ -75,13 +75,13 @@ private void AnswerCommand(bool answer)
     {
         if (answer)
         {
-            Sfx.play(wrongSound);
+            Sfx.Play(wrongSound);
             DialogueManager.instance.DisplayNextSentence();
             DisplayCorrectAnswer();
         }
         else
         {
-            Sfx.play(correctSound);          
+            Sfx.Play(correctSound);          
             DialogueManager.instance.DisplayCurrentSentence();
             DisplayWrongAnswer();
         }

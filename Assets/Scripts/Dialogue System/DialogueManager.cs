@@ -153,7 +153,7 @@ public class DialogueManager : MonoBehaviour {
         StartCoroutine(TypeSentences(currentDialogueSentence.Text));
         PerformCurrentEvent();
         //PlayDialogueSound
-        Sfx.play(clip);
+        Sfx.Play(clip);
         
 
     }

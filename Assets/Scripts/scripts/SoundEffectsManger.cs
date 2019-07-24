@@ -12,21 +12,16 @@ public class SoundEffectsManger : MonoBehaviour
     }
 
 
-    public void play (AudioClip clip)
+    public void Play (AudioClip clip)
     {
         audiosource.clip = clip;
         audiosource.Play();
     }
 
-    public void stop(string n)
+    public void Stop(string n)
     {
         audiosource.Stop();
         audiosource.clip = null;
-    }
-
-    internal void play(int index)
-    {
-        throw new NotImplementedException();
     }
 
 }
