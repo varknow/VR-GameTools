@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -231,6 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab183a7a2b8491e47800cbb687499cb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioclip: {fileID: 0}
 --- !u!114 &521009482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,12 +275,11 @@ MonoBehaviour:
   RecordIcon: {fileID: 0}
   CorrectIcon: {fileID: 0}
   WrongIcon: {fileID: 0}
-  StartButton: {fileID: 0}
-  DialogueCavas: {fileID: 0}
+  wrongSound: {fileID: 0}
+  correctSound: {fileID: 0}
   CorrectAnswerKey: 116
   WrongAnswerKey: 102
   StartDialogueKey: 114
-  Sfx: {fileID: 0}
   varKnowAgent: {fileID: 0}
   dialogueTrigger: {fileID: 0}
 --- !u!114 &521009485
@@ -294,7 +294,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac9c7d425bbfbc440afc708c52853d3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Effcets: []
+  minValue: 0
+  maxValue: 0
+  SoundSpeed: 0
 --- !u!1 &531163386
 GameObject:
   m_ObjectHideFlags: 0
@@ -1333,6 +1335,7 @@ MonoBehaviour:
     name: Sample Name1
     sentences:
     - Text: SNBSRn zdnSbdgzdndgn gzdgn zdgn dzgnmd
+      audioclip: {fileID: 0}
       afterDialogueEvent:
         m_PersistentCalls:
           m_Calls:
@@ -1352,6 +1355,7 @@ MonoBehaviour:
       HintText: 
       AddtionalHints: []
     - Text: dzgnmdgzm czd ggmzn dgxn zdndzxgnzdnzndx
+      audioclip: {fileID: 0}
       afterDialogueEvent:
         m_PersistentCalls:
           m_Calls:

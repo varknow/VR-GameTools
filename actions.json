@@ -1,10 +1,5 @@
 {
-  "actions": [
-    {
-      "name": "/actions/NewSet/in/NewAction",
-      "type": "boolean"
-    }
-  ],
+  "actions": [],
   "action_sets": [
     {
       "name": "/actions/NewSet",
